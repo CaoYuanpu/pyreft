@@ -30,6 +30,16 @@ You are a helpful assistant.
 
 %s [/INST]
 """
+
+alice_f = open('./alice_in_wonderland.txt', 'r')
+alice_content = alice_f.readlines()
+alice_book = "\n".join(alice_content)
+
+num_char = 2000 # about the same as number of bytes, 2000 chars ~= 2KB
+alice_slice = alice_book[:num_char]
+print(alice_slice)
+input()
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 def max_char_match_length(retrieved, golden):
@@ -137,8 +147,9 @@ _, reft_response = reft_model.generate(
 print(tokenizer.decode(reft_response[0], skip_special_tokens=True))
 
 
-# reft_model.set_device("cpu") # send back to cpu before saving.
-# reft_model.save(
-#     save_directory="./memo_demo", 
-#     save_to_hf_hub=False, 
-# )
+
+
+
+
+
+
