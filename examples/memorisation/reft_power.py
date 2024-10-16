@@ -88,14 +88,6 @@ toolkit which processes text in over 60 human languages.
 data_module = make_last_position_supervised_data_module(
     tokenizer, model, ["^^^&&&&&"], [memo_sequence])
 
-prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
-base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
-print(prompt["input_ids"][0])
-input()
-for tok in prompt["input_ids"][0]:
-    print(tokenizer.decode(tok))
-    input()
-
 # train
 training_args = transformers.TrainingArguments(
     num_train_epochs=1000.0, output_dir="./tmp", learning_rate=2e-3, report_to=[])
@@ -105,10 +97,10 @@ trainer = ReftTrainerForCausalLM(
 _ = trainer.train()
 
 
-prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
+# prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
+prompt = tokenizer("Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
-print(tokenizer.decode(prompt["input_ids"]))
-input()
+
 _, reft_response = reft_model.generate(
     prompt, unit_locations={"sources->base": (None, [[[base_unit_location]]])},
     intervene_on_prompt=True, max_new_tokens=512, do_sample=False, 
