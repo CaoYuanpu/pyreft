@@ -92,8 +92,9 @@ prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^
 base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
 print(prompt["input_ids"][0])
 input()
-print(tokenizer.decode(prompt["input_ids"][0][0]))
-input()
+for tok in prompt["input_ids"][0]:
+    print(tokenizer.decode(tok))
+    input()
 
 # train
 training_args = transformers.TrainingArguments(
