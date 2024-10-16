@@ -99,6 +99,8 @@ _ = trainer.train()
 
 prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
+print(tokenizer.decode(prompt["input_ids"]))
+input()
 _, reft_response = reft_model.generate(
     prompt, unit_locations={"sources->base": (None, [[[base_unit_location]]])},
     intervene_on_prompt=True, max_new_tokens=512, do_sample=False, 
