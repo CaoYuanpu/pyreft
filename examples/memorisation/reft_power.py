@@ -90,9 +90,9 @@ data_module = make_last_position_supervised_data_module(
 
 prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
-print(prompt[0])
+print(prompt["input_ids"].shape)
 input()
-print(tokenizer.decode(prompt["input_ids"][0]))
+print(tokenizer.decode(prompt["input_ids"]))
 input()
 
 # train
