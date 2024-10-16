@@ -88,6 +88,11 @@ toolkit which processes text in over 60 human languages.
 data_module = make_last_position_supervised_data_module(
     tokenizer, model, ["^^^&&&&&"], [memo_sequence])
 
+prompt = tokenizer(prompt_no_input_template % "Summarize the following text: ^^^&&&&&", return_tensors="pt").to("cuda")
+base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
+print(tokenizer.decode(prompt["input_ids"]))
+input()
+
 # train
 training_args = transformers.TrainingArguments(
     num_train_epochs=1000.0, output_dir="./tmp", learning_rate=2e-3, report_to=[])
