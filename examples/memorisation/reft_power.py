@@ -31,7 +31,7 @@ You are a helpful assistant.
 %s [/INST]
 """
 
-alice_f = open('./alice_in_wonderland.txt', 'r')
+alice_f = open('./examples/memorisation/alice_in_wonderland.txt', 'r')
 alice_content = alice_f.readlines()
 alice_book = "\n".join(alice_content)
 
