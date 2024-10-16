@@ -86,9 +86,9 @@ toolkit which processes text in over 60 human languages.
 #     tokenizer, model, [prompt_no_input_template % "^^^&&&&&"], [memo_sequence])
 
 data_module = make_last_position_supervised_data_module(
-    tokenizer, model, ["RANDID->"], [memo_sequence])
+    tokenizer, model, ["!@#$%->"], [memo_sequence])
 
-prompt = tokenizer(prompt_no_input_template % "Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
+# prompt = tokenizer(prompt_no_input_template % "Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
 
 # for tok in prompt["input_ids"][0]:
 #     print(tokenizer.decode(tok))
@@ -103,7 +103,7 @@ trainer = ReftTrainerForCausalLM(
 _ = trainer.train()
 
 
-prompt = tokenizer(prompt_no_input_template % "Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
+prompt = tokenizer(prompt_no_input_template % "Summarize the following text: !@#$%->", return_tensors="pt").to("cuda")
 # prompt = tokenizer("Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 6  # last position
 
@@ -115,7 +115,7 @@ _, reft_response = reft_model.generate(
 print(tokenizer.decode(reft_response[0], skip_special_tokens=True))
 
 
-prompt = tokenizer(prompt_no_input_template % "Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
+prompt = tokenizer(prompt_no_input_template % "Summarize the following text: !@#$%->", return_tensors="pt").to("cuda")
 # prompt = tokenizer("Summarize the following text: RANDID->", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 5  # last position
 
@@ -127,7 +127,7 @@ _, reft_response = reft_model.generate(
 print(tokenizer.decode(reft_response[0], skip_special_tokens=True))
 
 # prompt = tokenizer(prompt_no_input_template % "^^^&&&&&", return_tensors="pt").to("cuda")
-prompt = tokenizer("RANDID->", return_tensors="pt").to("cuda")
+prompt = tokenizer("!@#$%->", return_tensors="pt").to("cuda")
 base_unit_location = prompt["input_ids"].shape[-1] - 1  # last position
 _, reft_response = reft_model.generate(
     prompt, unit_locations={"sources->base": (None, [[[base_unit_location]]])},
